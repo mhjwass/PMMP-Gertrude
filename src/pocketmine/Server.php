@@ -1495,30 +1495,30 @@ class Server{
 		$this->console = new CommandReader();
 
 		$version = new VersionString($this->getPocketMineVersion());
-		$this->logger->info("Starting Minecraft: PE server version " . TextFormat::AQUA . $this->getVersion());
+		$this->logger->info("Starting QuiverMine: Bedrock Edition version " . TextFormat::AQUA . $this->getVersion());
 
-		$this->logger->info("Loading pocketmine-soft.yml...");
-		if(!file_exists($this->dataPath . "pocketmine-soft.yml")){
-			$content = file_get_contents($this->filePath . "src/pocketmine/resources/pocketmine-soft.yml");
-			@file_put_contents($this->dataPath . "pocketmine-soft.yml", $content);
+		$this->logger->info("Loading QuiverMine-advanced.yml...");
+		if(!file_exists($this->dataPath . "QuiverMine-advanced.yml")){
+			$content = file_get_contents($this->filePath . "src/pocketmine/resources/QuiverMine-advanced.yml");
+			@file_put_contents($this->dataPath . "QuiverMine-advanced.yml", $content);
 		}
 		$this->softConfig = new Config($this->dataPath . "pocketmine-soft.yml", Config::YAML, []);
 		
-		$this->logger->info("Loading pocketmine.yml...");
-		if(!file_exists($this->dataPath . "pocketmine.yml")){
-			$content = file_get_contents($this->filePath . "src/pocketmine/resources/pocketmine.yml");
-			@file_put_contents($this->dataPath . "pocketmine.yml", $content);
+		$this->logger->info("Loading QuiverMine.yml...");
+		if(!file_exists($this->dataPath . "QuiverMine.yml")){
+			$content = file_get_contents($this->filePath . "src/pocketmine/resources/QuiverMine.yml");
+			@file_put_contents($this->dataPath . "QuiverMine.yml", $content);
 		}
 		$this->config = new Config($this->dataPath . "pocketmine.yml", Config::YAML, []);
 
-		$this->logger->info("Loading server properties...");
-		$this->properties = new Config($this->dataPath . "server.properties", Config::PROPERTIES, [
-			"motd" => "Minecraft: PE Server",
+		$this->logger->info("Loading QuiverMine properties...");
+		$this->properties = new Config($this->dataPath . "QuiverMine.properties", Config::PROPERTIES, [
+			"motd" => "QuiverMine: Bedrock Edition",
 			"server-port" => 19132,
 			"memory-limit" => "256M",
 			"white-list" => false,
-			"spawn-protection" => 16,
-			"max-players" => 20,
+			"spawn-protection" => 0,
+			"max-players" => 100,
 			"allow-flight" => false,
 			"spawn-animals" => true,
 			"animals-limit" => 0,
@@ -1530,9 +1530,9 @@ class Server{
 			"pvp" => true,
 			"difficulty" => 1,
 			"generator-settings" => "",
-			"level-name" => "world",
+			"level-name" => "QLobby",
 			"level-seed" => "",
-			"level-type" => "DEFAULT",
+			"level-type" => "FLAT",
 			"enable-query" => true,
 			"enable-rcon" => false,
 			"rcon.password" => substr(base64_encode(@Utils::getRandomBytes(20, false)), 3, 10),
@@ -1555,16 +1555,16 @@ class Server{
 		$this->playerMetadata = new PlayerMetadataStore();
 		$this->levelMetadata = new LevelMetadataStore();
 
-		$this->operators = new Config($this->dataPath . "ops.txt", Config::ENUM);
-		$this->whitelist = new Config($this->dataPath . "white-list.txt", Config::ENUM);
-		if(file_exists($this->dataPath . "banned.txt") and !file_exists($this->dataPath . "banned-players.txt")){
-			@rename($this->dataPath . "banned.txt", $this->dataPath . "banned-players.txt");
+		$this->operators = new Config($this->dataPath . "operators.txt", Config::ENUM);
+		$this->whitelist = new Config($this->dataPath . "whitelist.txt", Config::ENUM);
+		if(file_exists($this->dataPath . "banned.txt") and !file_exists($this->dataPath . "banned.txt")){
+			@rename($this->dataPath . "banned.txt", $this->dataPath . "banned.txt");
 		}
-		@touch($this->dataPath . "banned-players.txt");
-		$this->banByName = new BanList($this->dataPath . "banned-players.txt");
+		@touch($this->dataPath . "banned.txt");
+		$this->banByName = new BanList($this->dataPath . "banned.txt");
 		$this->banByName->load();
-		@touch($this->dataPath . "banned-ips.txt");
-		$this->banByIP = new BanList($this->dataPath . "banned-ips.txt");
+		@touch($this->dataPath . "ip-bans.txt");
+		$this->banByIP = new BanList($this->dataPath . "ip-bans.txt");
 		$this->banByIP->load();
 
 		$this->maxPlayers = $this->getConfigInt("max-players", 20);
@@ -1606,14 +1606,14 @@ class Server{
 			@\cli_set_process_title($this->getName() . " " . $this->getPocketMineVersion());
 		}
 
-		$this->logger->info("Starting Minecraft PE server on " . ($this->getIp() === "" ? "*" : $this->getIp()) . ":" . $this->getPort());
+		$this->logger->info("Starting QuiverMine server on " . ($this->getIp() === "" ? "*" : $this->getIp()) . ":" . $this->getPort());
 		define("BOOTUP_RANDOM", @Utils::getRandomBytes(16));
 		$this->serverID = Utils::getMachineUniqueId($this->getIp() . $this->getPort());
 	
 		$this->addInterface($this->mainInterface = new RakLibInterface($this));
 
 		$this->logger->info("This server is running " . $this->getName() . " version " . ($version->isDev() ? TextFormat::YELLOW : "") . $version->get(true) . TextFormat::WHITE . " \"" . $this->getCodename() . "\" (API " . $this->getApiVersion() . ")");
-		$this->logger->info($this->getName() . " is distributed under the LGPL License");
+		$this->logger->info($this->getName() . " is for use on QuiverMine Network.");
 
 		PluginManager::$pluginParentTimer = new TimingsHandler("** Plugins");
 		Timings::init();

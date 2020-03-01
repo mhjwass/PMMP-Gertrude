@@ -75,7 +75,7 @@ class SimpleCommandMap implements CommandMap{
 				$this->register("pocketmine", new GamemodeCommand("gamemode"));
 				$this->register("pocketmine", new ListCommand("players"));
 				
-		if($this->server->getProperty("debug.commands", false) === true){
+		if($this->server->getProperty("commands.enable", false) === true){
 			
 		$this->register("pocketmine", new PluginsCommand("plugins"));
 		$this->register("pocketmine", new SeedCommand("seed"));

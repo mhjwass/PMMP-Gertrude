@@ -10,15 +10,15 @@ plugins:
 
 messages:
  #Message shown when a player uses a not registered or non-existent command
- unknown-command: 'Unknown command. Type "/help" for help.'
+ unknown-command: 'This command does not exist.'
 
  #Message shown by default when a player doesn't have permissions to use a command
  #Can be overriden by the command
- command-permissions: "§cYou don't have permissions to use this command."
+ command-permissions: "§cAccess denied. If you think this is an error, contact suppport!"
 
 main:
  #Block unknown items from creative-mode players
- filter-creative-items: true
+ filter-creative-items: false
  
  #Shuffle the player list to prevent players from 'gaming' the server, getting high priority on the tick list.
  #Value is in ticks, so 20 = shuffle each second

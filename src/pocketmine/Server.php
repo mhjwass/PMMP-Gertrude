@@ -1484,6 +1484,14 @@ class Server{
 		if(!file_exists($dataPath . "players/")){
 			mkdir($dataPath . "players/", 0777);
 		}
+		
+		if(!file_exists($dataPath . "QConfigs/")){
+			mkdir($dataPath . "QConfigs//", 0777);
+		}
+		
+		if(!file_exists($dataPath . "Administration/")){
+			mkdir($dataPath . "Administration//", 0777);
+		}
 
 		if(!file_exists($pluginPath)){
 			mkdir($pluginPath, 0777);
@@ -1498,21 +1506,21 @@ class Server{
 		$this->logger->info("Starting QuiverMine: Bedrock Edition version " . TextFormat::AQUA . $this->getVersion());
 
 		$this->logger->info("Loading QuiverMine-advanced.yml...");
-		if(!file_exists($this->dataPath . "QuiverMine-advanced.yml")){
+		if(!file_exists($dataPath . "QConfigs/" . "QuiverMine-advanced.yml")){
 			$content = file_get_contents($this->filePath . "src/pocketmine/resources/QuiverMine-advanced.yml");
-			@file_put_contents($this->dataPath . "QuiverMine-advanced.yml", $content);
+			@file_put_contents($dataPath . "QConfigs/" . "QuiverMine-advanced.yml", $content);
 		}
-		$this->softConfig = new Config($this->dataPath . "pocketmine-soft.yml", Config::YAML, []);
+		$this->softConfig = new Config($dataPath . "QConfigs/" . "QuiverMine-advanced.yml", Config::YAML, []);
 		
 		$this->logger->info("Loading QuiverMine.yml...");
-		if(!file_exists($this->dataPath . "QuiverMine.yml")){
+		if(!file_exists($dataPath . "QConfigs/" . "QuiverMine.yml")){
 			$content = file_get_contents($this->filePath . "src/pocketmine/resources/QuiverMine.yml");
-			@file_put_contents($this->dataPath . "QuiverMine.yml", $content);
+			@file_put_contents($dataPath . "QConfigs/" . "QuiverMine.yml", $content);
 		}
-		$this->config = new Config($this->dataPath . "pocketmine.yml", Config::YAML, []);
+		$this->config = new Config($dataPath . "QConfigs/" . "QuiverMine.yml", Config::YAML, []);
 
 		$this->logger->info("Loading QuiverMine properties...");
-		$this->properties = new Config($this->dataPath . "QuiverMine.properties", Config::PROPERTIES, [
+		$this->properties = new Config($dataPath . "QConfigs/" . "QuiverMine.properties", Config::PROPERTIES, [
 			"motd" => "QuiverMine: Bedrock Edition",
 			"server-port" => 19132,
 			"memory-limit" => "256M",
@@ -1555,16 +1563,16 @@ class Server{
 		$this->playerMetadata = new PlayerMetadataStore();
 		$this->levelMetadata = new LevelMetadataStore();
 
-		$this->operators = new Config($this->dataPath . "operators.txt", Config::ENUM);
-		$this->whitelist = new Config($this->dataPath . "whitelist.txt", Config::ENUM);
-		if(file_exists($this->dataPath . "banned.txt") and !file_exists($this->dataPath . "banned.txt")){
-			@rename($this->dataPath . "banned.txt", $this->dataPath . "banned.txt");
+		$this->operators = new Config($dataPath . "Administration/" . "operators.txt", Config::ENUM);
+		$this->whitelist = new Config($dataPath . "Administration/" . "whitelist.txt", Config::ENUM);
+		if(file_exists($dataPath . "Administration/" . "banned.txt") and !file_exists($this->dataPath . "banned.txt")){
+			@rename($dataPath . "Administration/" . "banned.txt", $this->dataPath . "banned.txt");
 		}
-		@touch($this->dataPath . "banned.txt");
-		$this->banByName = new BanList($this->dataPath . "banned.txt");
+		@touch($dataPath . "Administration/" . "banned.txt");
+		$this->banByName = new BanList($dataPath . "Administration/" . "banned.txt");
 		$this->banByName->load();
-		@touch($this->dataPath . "ip-bans.txt");
-		$this->banByIP = new BanList($this->dataPath . "ip-bans.txt");
+		@touch($dataPath . "Administration/" . "ip-bans.txt");
+		$this->banByIP = new BanList($dataPath . "Administration/" . "ip-bans.txt");
 		$this->banByIP->load();
 
 		$this->maxPlayers = $this->getConfigInt("max-players", 20);

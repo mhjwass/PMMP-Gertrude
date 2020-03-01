@@ -45,13 +45,10 @@ use pocketmine\command\defaults\SayCommand;
 use pocketmine\command\defaults\SeedCommand;
 use pocketmine\command\defaults\SetWorldSpawnCommand;
 use pocketmine\command\defaults\SpawnpointCommand;
-use pocketmine\command\defaults\StatusCommand;
-use pocketmine\command\defaults\StopCommand;
 use pocketmine\command\defaults\TeleportCommand;
 use pocketmine\command\defaults\TimeCommand;
 use pocketmine\command\defaults\TimingsCommand;
 use pocketmine\command\defaults\VanillaCommand;
-use pocketmine\command\defaults\VersionCommand;
 use pocketmine\command\defaults\WhitelistCommand;
 use pocketmine\Server;
 use pocketmine\utils\MainLogger;
@@ -74,7 +71,12 @@ class SimpleCommandMap implements CommandMap{
 	}
 
 	private function setDefaultCommands(){
-		$this->register("pocketmine", new VersionCommand("software"));
+				$this->register("pocketmine", new TeleportCommand("tp"));
+				$this->register("pocketmine", new GamemodeCommand("gamemode"));
+				$this->register("pocketmine", new ListCommand("players"));
+				
+		if($this->server->getProperty("debug.commands", false) === true){
+			
 		$this->register("pocketmine", new PluginsCommand("plugins"));
 		$this->register("pocketmine", new SeedCommand("seed"));
 		$this->register("pocketmine", new HelpCommand("help"));
@@ -84,7 +86,6 @@ class SimpleCommandMap implements CommandMap{
 		$this->register("pocketmine", new BanListCommand("banlist"));
 		$this->register("pocketmine", new PardonCommand("pardon"));
 		$this->register("pocketmine", new PardonIpCommand("pardon-ip"));
-		$this->register("pocketmine", new ListCommand("players"));
 		$this->register("pocketmine", new DifficultyCommand("difficulty"));
 		$this->register("pocketmine", new KickCommand("kick"));
 		$this->register("pocketmine", new WhitelistCommand("whitelist"));
@@ -94,17 +95,12 @@ class SimpleCommandMap implements CommandMap{
 		$this->register("pocketmine", new GiveCommand("give"));
 		$this->register("pocketmine", new EffectCommand("effect"));
 		$this->register("pocketmine", new ParticleCommand("particle"));
-		$this->register("pocketmine", new GamemodeCommand("gamemode"));
 		$this->register("pocketmine", new SpawnpointCommand("spawnpoint"));
 		$this->register("pocketmine", new SetWorldSpawnCommand("setworldspawn"));
-		$this->register("pocketmine", new TeleportCommand("tp"));
 		$this->register("pocketmine", new TimeCommand("time"));
 		$this->register("pocketmine", new TimingsCommand("timings"));
 		$this->register("pocketmine", new ReloadCommand("reload"));
 		$this->register("pocketmine", new PingCommand("ping"));
-
-		if($this->server->getProperty("debug.commands", false) === true){
-			$this->register("pocketmine", new StatusCommand("status"));
 		}
 	}
 

@@ -32,8 +32,8 @@ class HelpCommand extends VanillaCommand{
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"Shows the help menu",
-			"/help [pageNumber]\n/help <topic> [pageNumber]",
+			"Shows QuiverMine Commands",
+			"/help [page]\n/help <topic> [page]",
 			["?"]
 		);
 		$this->setPermission("pocketmine.command.help");
@@ -79,11 +79,11 @@ class HelpCommand extends VanillaCommand{
 			if($pageNumber < 1){
 				$pageNumber = 1;
 			}
-			$message = TextFormat::RED . "-" . TextFormat::RESET . " Showing help page " . $pageNumber . " of " . count($commands) . " (/help <pageNumber>) " . TextFormat::RED . "-" . TextFormat::RESET . "\n";
+			$message = TextFormat::RED . "" . TextFormat::RESET . " Showing page " . $pageNumber . " of " . count($commands) . " (/help <page>) " . TextFormat::RED . "" . TextFormat::RESET . "\n";
 			if(isset($commands[$pageNumber - 1])){
 				foreach($commands[$pageNumber - 1] as $command){
 					if($command->getName() != "admin"){
-						$message .= TextFormat::DARK_GREEN . "/" . $command->getName() . ": " . TextFormat::WHITE . $command->getDescription() . "\n";
+						$message .= TextFormat::GOLD . "/" . $command->getName() . ": " . TextFormat::WHITE . $command->getDescription() . "\n";
 					}
 				}
 			}
@@ -93,7 +93,7 @@ class HelpCommand extends VanillaCommand{
 		}else{
 			if(($cmd = $sender->getServer()->getCommandMap()->getCommand(strtolower($command))) instanceof Command){
 				if($cmd->testPermissionSilent($sender) && $cmd->isAvailableForHelp()){
-					$message = TextFormat::YELLOW . "--------- " . TextFormat::WHITE . " Help: /" . $cmd->getName() . TextFormat::YELLOW . " ---------\n";
+					$message = TextFormat::YELLOW . " " . TextFormat::WHITE . " QuiverMine Commands " . $cmd->getName() . TextFormat::YELLOW . " \n";
 					$message .= TextFormat::GOLD . "Description: " . TextFormat::WHITE . $cmd->getDescription() . "\n";
 					$message .= TextFormat::GOLD . "Usage: " . TextFormat::WHITE . implode("\n" . TextFormat::WHITE, explode("\n", $cmd->getUsage())) . "\n";
 					$sender->sendMessage($message);
@@ -108,7 +108,7 @@ class HelpCommand extends VanillaCommand{
 	}
 	
 	/**
-	 * Sort commands by plugin (game plugin first, then LbCore, then SteadFast
+	 * Sort commands by plugin (game plugin first, then QComponents, then SteadFast
 	 * @param PluginCommand $a
 	 * @param PluginCommand $b
 	 * @return int
@@ -121,9 +121,9 @@ class HelpCommand extends VanillaCommand{
 				$aPlugin = $a->getPlugin()->getName();
 				$bPlugin = $b->getPlugin()->getName();
 				if ($aPlugin !== $bPlugin) {
-					if ($aPlugin == 'LbCore') {
+					if ($aPlugin == 'QComponents') {
 						return 1;
-					} elseif ($bPlugin == 'LbCore') {
+					} elseif ($bPlugin == 'QComponents') {
 						return -1;
 					}
 				}

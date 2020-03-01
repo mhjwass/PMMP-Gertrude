@@ -325,7 +325,7 @@ class Server{
 	 * @return string
 	 */
 	public function getName(){
-		return "PocketMine-Steadfast";
+		return "QuiverMine";
 	}
 
 	/**
@@ -416,7 +416,7 @@ class Server{
 	 * @return string
 	 */
 	public function getServerName(){
-		return $this->getConfigString("motd", "Minecraft: PE Server");
+		return $this->getConfigString("motd", "QuiverMine: Bedrock Edition");
 	}
 
 	/**
@@ -543,6 +543,8 @@ class Server{
 			case "spectator":
 			case "view":
 			case "v":
+			case "spc":
+			case "s2":
 				return Player::SPECTATOR;
 		}
 		return -1;
@@ -624,7 +626,7 @@ class Server{
 	 * @return string
 	 */
 	public function getMotd(){
-		return $this->getConfigString("motd", "Minecraft: PE Server");
+		return $this->getConfigString("motd", "QuiverMine: Bedrock Edition");
 	}
 
 	/**
@@ -818,7 +820,7 @@ class Server{
 				$this->logger->warning("Corrupted data found for \"" . $name . "\", creating new profile");
 			}
 		}else{
-			$this->logger->notice("Player data not found for \"" . $name . "\", creating new profile");
+			$this->logger->notice("Player data not found for \"" . $name . "\", creating new profile (Turn On player save data in config");
 		}
 		$spawn = $this->getDefaultLevel()->getSafeSpawn();
 		$nbt = new Compound("", [

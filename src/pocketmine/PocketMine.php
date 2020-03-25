@@ -447,12 +447,12 @@ namespace pocketmine {
 	@define("INT32_MASK", is_int(0xffffffff) ? 0xffffffff : -1);
 	@ini_set("opcache.mmap_base", bin2hex(Utils::getRandomBytes(8, false))); //Fix OPCache address errors
 
-	if(!file_exists(\pocketmine\DATA . "server.properties") and !isset($opts["no-wizard"])){
+	if(!file_exists(\pocketmine\DATA . "QConfigs/QuiverMine.properties") and !isset($opts["no-wizard"])){
 		new Installer();
 	}
 
 	if(\Phar::running(true) === ""){
-		$logger->warning("Non-packaged PocketMine-Steadfast installation detected, do not use on production.");
+		$logger->warning("QuiverMine running on source code. It is recommended that you compile it for use on production.");
 	}
 
 	ThreadManager::init();

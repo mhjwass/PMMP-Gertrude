@@ -38,7 +38,7 @@ class Installer{
 	private $lang;
 
 	public function __construct(){
-		echo "[*] PocketMine-MP set-up wizard\n";
+		echo "[*] QuiverMine set-up wizard\n";
 		echo "[*] Please select a language:\n";
 		foreach(InstallerLang::$languages as $short => $native){
 			echo " $native => $short\n";
@@ -144,7 +144,7 @@ LICENSE;
 		if($op === ""){
 			echo "[!] " . $this->lang->op_warning . "\n";
 		}else{
-			$ops = new Config(\pocketmine\DATA . "operators.txt", Config::ENUM);
+			$ops = new Config(\pocketmine\DATA . "Administration/operators.txt", Config::ENUM);
 			$ops->set($op, true);
 			$ops->save();
 		}

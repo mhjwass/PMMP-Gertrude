@@ -1565,8 +1565,8 @@ class Server{
 
 		$this->operators = new Config($dataPath . "Administration/" . "operators.txt", Config::ENUM);
 		$this->whitelist = new Config($dataPath . "Administration/" . "whitelist.txt", Config::ENUM);
-		if(file_exists($dataPath . "Administration/" . "banned.txt") and !file_exists($this->dataPath . "banned.txt")){
-			@rename($dataPath . "Administration/" . "banned.txt", $this->dataPath . "banned.txt");
+		if(file_exists($dataPath . "Administration/" . "banned.txt") and !file_exists($this->dataPath . "Administration/banned.txt")){
+			@rename($dataPath . "Administration/" . "banned.txt", $this->dataPath . "Administration/banned.txt");
 		}
 		@touch($dataPath . "Administration/" . "banned.txt");
 		$this->banByName = new BanList($dataPath . "Administration/" . "banned.txt");

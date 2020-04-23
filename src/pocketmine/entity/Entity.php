@@ -506,6 +506,25 @@ abstract class Entity extends Location implements Metadatable{
 		}
 		return null;
 	}
+	
+	public static function createBaseNBT(Vector3 $pos, ?Vector3 $motion = null, float $yaw = 0.0, float $pitch = 0.0) : Compound{
+		return new Compound("", [
+					"Pos" => new Enum("Pos", [
+						new DoubleTag("", $pos->x),
+						new DoubleTag("", $pos->y),
+						new DoubleTag("", $pos->z)
+					]),
+					"Rotation" => new Enum("Rotation", [
+						new FloatTag("", $yaw),
+						new FloatTag("", $pitch),
+					]),
+					"Motion" => new Enum("Motion", [
+						new DoubleTag("", $motion !== null ? $motion->x : 0.0),
+				        new DoubleTag("", $motion !== null ? $motion->y : 0.0),
+				        new DoubleTag("", $motion !== null ? $motion->z : 0.0)
+					])
+		]);
+	}
 
 	public static function registerEntity($className, $force = false) {
 		$class = new \ReflectionClass($className);

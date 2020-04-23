@@ -406,6 +406,10 @@ class Level implements ChunkManager, Metadatable{
 			}
 		}
 	}
+	
+	public function getTickRate(){
+		return 1;
+	}
 
 	public function addParticle(Particle $particle, array $players = null) {
 		if ($players === null) {

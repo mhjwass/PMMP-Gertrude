@@ -9,4 +9,4 @@ QuiverMine software is based on Lifeboat's Steadfast2. The goal of QuiverMine is
  * A more organised way to store configs
  * A way to enable or disable commands in the YML file of the software
  * An easier way to create Entities using the `createBaseNBT` function
- 
+ * The removal of non-crucial features like OP command, say command, etc... (Bear in mind you can still use all the op functions like `setOp` and the op.txt to set/remove a player as an Operator. Only the commands were removed to eliminate congestion and for potential security breaches)

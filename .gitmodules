@@ -1,0 +1,6 @@
+[submodule "build/php-build-scripts"]
+	path = build/php-build-scripts
+	url = https://github.com/pmmp/php-build-scripts
+[submodule "build/PreProcessor"]
+	path = build/PreProcessor
+	url = https://github.com/pmmp/PreProcessor

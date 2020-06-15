@@ -74,7 +74,7 @@ namespace pocketmine {
 
 	const VERSION = '1.0';
 	const API_VERSION = "1.12.0";
-	const CODENAME = "(Crossbow)";
+	const CODENAME = "(NUL1l)";
 	const MINECRAFT_VERSION = "v1.x";
 	const MINECRAFT_VERSION_NETWORK = "1.2";
 
@@ -447,12 +447,12 @@ namespace pocketmine {
 	@define("INT32_MASK", is_int(0xffffffff) ? 0xffffffff : -1);
 	@ini_set("opcache.mmap_base", bin2hex(Utils::getRandomBytes(8, false))); //Fix OPCache address errors
 
-	if(!file_exists(\pocketmine\DATA . "QConfigs/QuiverMine.properties") and !isset($opts["no-wizard"])){
+	if(!file_exists(\pocketmine\DATA . "Configs/Project-Survivia.properties") and !isset($opts["no-wizard"])){
 		new Installer();
 	}
 
 	if(\Phar::running(true) === ""){
-		$logger->warning("QuiverMine running on source code. It is recommended that you compile it for use on production.");
+		$logger->warning("Project-Survivia running from source code.");
 	}
 
 	ThreadManager::init();

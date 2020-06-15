@@ -325,7 +325,7 @@ class Server{
 	 * @return string
 	 */
 	public function getName(){
-		return "QuiverMine";
+		return "Project-Survivia";
 	}
 
 	/**
@@ -416,7 +416,7 @@ class Server{
 	 * @return string
 	 */
 	public function getServerName(){
-		return $this->getConfigString("motd", "QuiverMine: Bedrock Edition");
+		return $this->getConfigString("motd", "Survivia: Bedrock Edition");
 	}
 
 	/**
@@ -626,7 +626,7 @@ class Server{
 	 * @return string
 	 */
 	public function getMotd(){
-		return $this->getConfigString("motd", "QuiverMine: Bedrock Edition");
+		return $this->getConfigString("motd", "Survivia: Bedrock Edition");
 	}
 
 	/**
@@ -1485,8 +1485,8 @@ class Server{
 			mkdir($dataPath . "players/", 0777);
 		}
 		
-		if(!file_exists($dataPath . "QConfigs/")){
-			mkdir($dataPath . "QConfigs//", 0777);
+		if(!file_exists($dataPath . "Configs/")){
+			mkdir($dataPath . "Configs//", 0777);
 		}
 		
 		if(!file_exists($dataPath . "Administration/")){
@@ -1503,27 +1503,27 @@ class Server{
 		$this->console = new CommandReader();
 
 		$version = new VersionString($this->getPocketMineVersion());
-		$this->logger->info("Starting QuiverMine: Bedrock Edition version " . TextFormat::AQUA . $this->getVersion());
+		$this->logger->info("Starting Project-Survivia: Bedrock Edition version " . TextFormat::AQUA . $this->getVersion());
 
-		$this->logger->info("Loading QuiverMine-advanced.yml...");
-		if(!file_exists($dataPath . "QConfigs/" . "QuiverMine-advanced.yml")){
-			$content = file_get_contents($this->filePath . "src/pocketmine/resources/QuiverMine-advanced.yml");
-			@file_put_contents($dataPath . "QConfigs/" . "QuiverMine-advanced.yml", $content);
+		$this->logger->info("Loading Survivia-advanced.yml...");
+		if(!file_exists($dataPath . "Configs/" . "Survivia-advanced.yml")){
+			$content = file_get_contents($this->filePath . "src/pocketmine/resources/Survivia-advanced.yml");
+			@file_put_contents($dataPath . "Configs/" . "Survivia-advanced.yml", $content);
 		}
-		$this->softConfig = new Config($dataPath . "QConfigs/" . "QuiverMine-advanced.yml", Config::YAML, []);
+		$this->softConfig = new Config($dataPath . "Configs/" . "Survivia-advanced.yml", Config::YAML, []);
 		
-		$this->logger->info("Loading QuiverMine.yml...");
-		if(!file_exists($dataPath . "QConfigs/" . "QuiverMine.yml")){
-			$content = file_get_contents($this->filePath . "src/pocketmine/resources/QuiverMine.yml");
-			@file_put_contents($dataPath . "QConfigs/" . "QuiverMine.yml", $content);
+		$this->logger->info("Loading Project-Survivia.yml...");
+		if(!file_exists($dataPath . "Configs/" . "Project-Survivia.yml")){
+			$content = file_get_contents($this->filePath . "src/pocketmine/resources/Project-Survivia.yml");
+			@file_put_contents($dataPath . "Configs/" . "Project-Survivia.yml", $content);
 		}
-		$this->config = new Config($dataPath . "QConfigs/" . "QuiverMine.yml", Config::YAML, []);
+		$this->config = new Config($dataPath . "Configs/" . "Project-Survivia.yml", Config::YAML, []);
 
-		$this->logger->info("Loading QuiverMine properties...");
-		$this->properties = new Config($dataPath . "QConfigs/" . "QuiverMine.properties", Config::PROPERTIES, [
-			"motd" => "QuiverMine: Bedrock Edition",
+		$this->logger->info("Loading Project-Survivia properties...");
+		$this->properties = new Config($dataPath . "Configs/" . "Project-Survivia.properties", Config::PROPERTIES, [
+			"motd" => "Project-Survivia: Bedrock Edition",
 			"server-port" => 19132,
-			"memory-limit" => "256M",
+			"memory-limit" => "1024M",
 			"white-list" => false,
 			"spawn-protection" => 0,
 			"max-players" => 100,
@@ -1538,7 +1538,7 @@ class Server{
 			"pvp" => true,
 			"difficulty" => 1,
 			"generator-settings" => "",
-			"level-name" => "QLobby",
+			"level-name" => "Lobby",
 			"level-seed" => "",
 			"level-type" => "FLAT",
 			"enable-query" => true,
@@ -1614,14 +1614,14 @@ class Server{
 			@\cli_set_process_title($this->getName() . " " . $this->getPocketMineVersion());
 		}
 
-		$this->logger->info("Starting QuiverMine server on " . ($this->getIp() === "" ? "*" : $this->getIp()) . ":" . $this->getPort());
+		$this->logger->info("Starting Project-Survivia server on " . ($this->getIp() === "" ? "*" : $this->getIp()) . ":" . $this->getPort());
 		define("BOOTUP_RANDOM", @Utils::getRandomBytes(16));
 		$this->serverID = Utils::getMachineUniqueId($this->getIp() . $this->getPort());
 	
 		$this->addInterface($this->mainInterface = new RakLibInterface($this));
 
 		$this->logger->info("This server is running " . $this->getName() . " version " . ($version->isDev() ? TextFormat::YELLOW : "") . $version->get(true) . TextFormat::WHITE . " \"" . $this->getCodename() . "\" (API " . $this->getApiVersion() . ")");
-		$this->logger->info($this->getName() . " is for use on QuiverMine Network.");
+		$this->logger->info($this->getName() . " is for use on Project-Survivia.");
 
 		PluginManager::$pluginParentTimer = new TimingsHandler("** Plugins");
 		Timings::init();

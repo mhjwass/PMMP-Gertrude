@@ -29,16 +29,16 @@ use pocketmine\utils\Config;
 use pocketmine\utils\Utils;
 
 class Installer{
-	const DEFAULT_NAME = "QuiverMine: Bedrock Edition";
+	const DEFAULT_NAME = "Project-Survivia: Bedrock Edition";
 	const DEFAULT_PORT = 19132;
-	const DEFAULT_MEMORY = 256;
+	const DEFAULT_MEMORY = 1024;
 	const DEFAULT_PLAYERS = 20;
 	const DEFAULT_GAMEMODE = 0;
 
 	private $lang;
 
 	public function __construct(){
-		echo "[*] QuiverMine set-up wizard\n";
+		echo "[*] Project-Survivia set-up wizard\n";
 		echo "[*] Please select a language:\n";
 		foreach(InstallerLang::$languages as $short => $native){
 			echo " $native => $short\n";
@@ -104,7 +104,7 @@ LICENSE;
 	}
 
 	private function generateBaseConfig(){
-		$config = new Config(\pocketmine\DATA . "QuiverMine.properties", Config::PROPERTIES);
+		$config = new Config(\pocketmine\DATA . "\Configs\Project-Survivia.properties", Config::PROPERTIES);
 		echo "[?] " . $this->lang->name_your_server . " (" . self::DEFAULT_NAME . "): ";
 		$config->set("server-name", $this->getInput(self::DEFAULT_NAME));
 		echo "[*] " . $this->lang->port_warning . "\n";
@@ -150,7 +150,7 @@ LICENSE;
 		}
 		echo "[*] " . $this->lang->whitelist_info . "\n";
 		echo "[?] " . $this->lang->whitelist_enable . " (y/N): ";
-		$config = new Config(\pocketmine\DATA . "QuiverMine.properties", Config::PROPERTIES);
+		$config = new Config(\pocketmine\DATA . "\Configs\Project-Survivia.properties", Config::PROPERTIES);
 		if(strtolower($this->getInput("n")) === "y"){
 			echo "[!] " . $this->lang->whitelist_warning . "\n";
 			$config->set("white-list", true);
@@ -161,7 +161,7 @@ LICENSE;
 	}
 
 	private function networkFunctions(){
-		$config = new Config(\pocketmine\DATA . "QuiverMine.properties", Config::PROPERTIES);
+		$config = new Config(\pocketmine\DATA . "\Configs\Project-Survivia.properties", Config::PROPERTIES);
 		echo "[!] " . $this->lang->query_warning1 . "\n";
 		echo "[!] " . $this->lang->query_warning2 . "\n";
 		echo "[?] " . $this->lang->query_disable . " (y/N): ";

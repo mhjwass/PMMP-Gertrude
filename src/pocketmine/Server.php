@@ -151,6 +151,8 @@ use pocketmine\event\server\SendRecipiesList;
 use pocketmine\network\protocol\PEPacket;
 use pocketmine\tile\Beacon;
 use pocketmine\tile\Banner;
+//new
+use pocketmine\scheduler\AsyncPool;
 
 /**
  * The class that manages everything
@@ -293,6 +295,10 @@ class Server{
 	private $isUseEncrypt = false;
 	
 	private $modsManager = null;
+	
+	//new
+	/** @var AsyncPool */
+	private $asyncPool;
 
 	public function addSpawnedEntity($entity) {
 		if ($entity instanceof Player) {
@@ -690,6 +696,11 @@ class Server{
 	 */
 	public function getModsManager() {
 		return $this->modsManager;
+	}
+	
+	//new
+	public function getAsyncPool() : AsyncPool{
+		return $this->asyncPool;
 	}
 
 	/**
@@ -1554,6 +1565,9 @@ class Server{
 		ServerScheduler::$WORKERS = 4;
 
 		$this->scheduler = new ServerScheduler();
+		$poolSize = 2;
+		
+		$this->asyncPool = new AsyncPool($this, $poolSize, max(-1, (int) $this->getProperty("memory.async-worker-hard-limit", 256)), $this->autoloader, $this->logger);
 
 		if($this->getConfigBoolean("enable-rcon", false) === true){
 			$this->rcon = new RCON($this, $this->getConfigString("rcon.password", ""), $this->getConfigInt("rcon.port", $this->getPort()), ($ip = $this->getIp()) != "" ? $ip : "0.0.0.0", $this->getConfigInt("rcon.threads", 1), $this->getConfigInt("rcon.clients-per-thread", 50));
@@ -1902,6 +1916,7 @@ class Server{
 				}
 			} else {
 				Server::broadcastPacket($players, $pk);
+				$this->asyncPool->submitTask($task);
 			}
 		}
 	}
@@ -2053,6 +2068,11 @@ class Server{
 			foreach($this->network->getInterfaces() as $interface){
 				$interface->shutdown();
 				$this->network->unregisterInterface($interface);
+			}
+			
+			if($this->asyncPool instanceof AsyncPool){
+				$this->getLogger()->debug("Shutting down async task worker pool");
+				$this->asyncPool->shutdown();
 			}
 
 			$this->shutdown();

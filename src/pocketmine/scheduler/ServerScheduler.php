@@ -53,7 +53,7 @@ class ServerScheduler{
 
 	public function __construct(){
 		$this->queue = new ReversePriorityQueue();
-		$this->asyncPool = new AsyncPool(Server::getInstance(), self::$WORKERS);
+		//$this->asyncPool = new AsyncPool(Server::getInstance(), self::$WORKERS);
 	}
 
 	/**
@@ -251,7 +251,7 @@ class ServerScheduler{
 			}
 		}
 
-		$this->asyncPool->collectTasks();
+	//	$this->asyncPool->collectTasks();
 	}
 
 	private function isReady($currentTicks){

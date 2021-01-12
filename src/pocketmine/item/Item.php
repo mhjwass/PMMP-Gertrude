@@ -344,6 +344,7 @@ class Item {
 	const FLINT = 356;
 	const RAW_PORKCHOP = 262;
 	const COOKED_PORKCHOP = 263;
+	const SHIELD = 355;	
 	const PAINTING = 357;
 	const GOLDEN_APPLE = 258;
 	const WOODEN_DOOR = 359;
@@ -493,8 +494,16 @@ class Item {
 	const DISC_CAT = 525;	
 	const DISC_13 = 524;
 	const DISC_MELLOHI = 530;
+	const RECORD_MELLOHI = 530;
 	const DISC_11 = 534;
-	
+	const FIRE_CHARGE = 499;
+	const MILK_BUCKET = 361;
+	const WATER_BUCKET = 362;
+	const LAVA_BUCKET = 363;
+	const COD_BUCKET = 364;
+	const SALMON_BUCKET = 365;
+	const TROPICAL_FISH_BUCKET = 366;
+	const PUFFERFISH_BUCKET = 367;
 	
 
 	const COBBLESTONE = self::COBBLE;
@@ -846,6 +855,7 @@ class Item {
 		352 => "Gold Chestplate",
 		353 => "Gold Leggins",
 		354 => "Gold Boots",
+		355 => "Shield",
 		356 => "Flint",
 		262 => "Raw Porkchop",
 		263 => "Cooked Porkchop",
@@ -1106,6 +1116,8 @@ class Item {
 			// update for 1.0
 			self::$list[self::CHORUS_FRUIT] = ChorusFruit::class;
 			self::$list[self::TOTEM_OF_UNDYING] = TotemOfUndying::class;
+			self::$list[self::WATER_BUCKET] = BucketWater::class;
+			self::$list[self::LAVA_BUCKET] = BucketLava::class;
 
 			// for($i = 0; $i < 256; ++$i){
 			// 	if(Block::$list[$i] !== null){

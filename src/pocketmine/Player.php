@@ -3304,8 +3304,8 @@ class Player extends Human implements CommandSender, InventoryHolder, IPlayer {
         if ($this->getPlayerProtocol() >= Info::PROTOCOL_392) {
             $pk = new CreativeContentPacket();
             $pk->groups = Item::getCreativeGroups();
-            $pk->items = Item::getCreativeItems();
-            $this->directDataPacket($pk);
+			$pk->items = Item::getCreativeItems();
+			$this->directDataPacket($pk);
         } else {
             $slots = [];
             foreach(Item::getCreativeItems() as $item){
@@ -4529,7 +4529,7 @@ class Player extends Human implements CommandSender, InventoryHolder, IPlayer {
 					$projectile->spawnToAll();
 				}
 			}
-		} else if ($itemInHand->getId() === Item::BUCKET && $itemInHand->getDamage() === 1) { //Milk!
+		} else if ($itemInHand->getId() === Item::MILK_BUCKET) { //Milk!
 			$this->server->getPluginManager()->callEvent($ev = new PlayerItemConsumeEvent($this, $itemInHand));
 			if ($ev->isCancelled()) {
 				$this->inventory->sendContents($this);
